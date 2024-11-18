@@ -3,7 +3,17 @@ import {Maze} from './src/Maze.js'
 import { Player } from './src/Player.js';
 import { Vector2D } from './src/Vector2D.js';
 import { Input } from './src/Input.js';
+import { MazeGenerator } from './src/MazeGenerator.js';
+import { Grid } from './src/Grid.js'
 
+/*
+const generator = new MazeGenerator(45, 120);
+generator.generate();
+generator.addStartAndEnd()
+const maze_structure = generator.maze
+
+
+/*
 const maze_structure = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 2, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -40,7 +50,7 @@ const maze_structure = [
 ];
 
 
-const maze = new Maze(maze_structure,'game-canvas')
+const maze = new Maze(maze_structure,'#game-canvas')
 const player_initial_position = new Vector2D(1,1);
 const player = new Player(player_initial_position);
 const input = new Input()
@@ -81,6 +91,15 @@ document.addEventListener('keyup', (event) => {
   player.direction = null;
 });
 
+
+*/
+
+// Create a grid that fills the horizontal extension and has 20 columns and 20 rows
+const grid = new Grid("#game-canvas", 40, 100);
+grid.drawGrid()
+//grid.fillCellWithBlack(0,0)
+//grid.fillCellWithBlue(1,1)
+grid.fillSequenceOfCells([[1,1], [1,2], [1,3]])
 
 
 
