@@ -3,7 +3,7 @@ import {Maze} from './src/Maze.js'
 import { Player } from './src/Player.js';
 import { Vector2D } from './src/Vector2D.js';
 import { Input } from './src/Input.js';
-import { MazeGenerator } from './src/MazeGenerator.js';
+import { MazeGeneratorDrawer } from './src/MazeGenerator.js';
 import { Grid } from './src/Grid.js'
 
 /*
@@ -99,8 +99,10 @@ const grid = new Grid("#game-canvas", 40, 100);
 grid.drawGrid()
 //grid.fillCellWithBlack(0,0)
 //grid.fillCellWithBlue(1,1)
-grid.fillSequenceOfCells([[1,1], [1,2], [1,3]])
+//grid.fillSequenceOfCells([[1,1], [1,2], [1,3], [1,4], [1,5], [1,6], [1,7], [1,8], [1,9]], 100)
 
+const mazeGenerator = new MazeGeneratorDrawer(grid)
+mazeGenerator.generateMaze()
 
 
 

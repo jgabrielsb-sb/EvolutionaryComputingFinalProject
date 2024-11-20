@@ -32,58 +32,71 @@ export class Grid {
         this.canvas.height = this.cellSize * this.num_rows;
     }
 
-    drawGrid(){
-
-        for(let row=0; row < this.num_rows; row++){
-            for(let col=0; col < this.num_cols; col++){
-                console.log(row,col)
-                
-                this.ctx.strokeStyle = '#ccc';
-                this.ctx.strokeRect(this.cellSize * col, this.cellSize * row, this.cellSize, this.cellSize);
-
+    drawGrid() {
+        for (let row = 0; row < this.num_rows; row++) {
+            for (let col = 0; col < this.num_cols; col++) {
+                // Calculate exact positions
+                const x = Math.floor(this.cellSize * col);
+                const y = Math.floor(this.cellSize * row);
+    
+                // Fill the cell first
                 this.ctx.fillStyle = 'white';
-                this.ctx.fillRect(this.cellSize * col, this.cellSize * row, this.cellSize, this.cellSize);
-                
-                
+                this.ctx.fillRect(x, y, this.cellSize, this.cellSize);
+    
+                // Draw the border after
+                this.ctx.strokeStyle = '#ccc';
+                this.ctx.strokeRect(x, y, this.cellSize, this.cellSize);
             }
         }
     }
+    
 
-    fillCell(row, col){
-        const x = col * this.cellSize;
-        const y = row * this.cellSize;
-        const cellSize = this.cellSize
+    fillCell(row, col) {
+        // Calculate positions and size
+        const x = Math.floor(col * this.cellSize);
+        const y = Math.floor(row * this.cellSize);
+        const cellSize = this.cellSize;
+    
         let opacity = 0;
-
+    
         const animate = () => {
-            if (opacity < 1){
+            if (opacity < 1) {
+                // Clear and redraw the cell with the current opacity
                 this.ctx.clearRect(x, y, cellSize, cellSize);
-                this.ctx.fillStyle = `rgba(0,0,0, ${opacity})`;
+    
+                this.ctx.fillStyle = `rgba(0,0,0,${opacity})`;
                 this.ctx.fillRect(x, y, cellSize, cellSize);
-
+    
                 this.ctx.strokeStyle = '#ccc';
                 this.ctx.strokeRect(x, y, cellSize, cellSize);
-
-                opacity += 0.05
-                requestAnimationFrame(animate)
-            }else{
-                this.ctx.fillStyle = 'rgb(0,0,0)'
-                this.ctx.fillRect(x, y, cellSize, cellSize)
+    
+                opacity += 0.05;
+                requestAnimationFrame(animate);
+            } else {
+                // Ensure the cell is fully filled at the end
+                this.ctx.fillStyle = 'rgb(0,0,0)';
+                this.ctx.fillRect(x, y, cellSize, cellSize);
+    
+                this.ctx.strokeStyle = '#ccc';
+                this.ctx.strokeRect(x, y, cellSize, cellSize);
             }
-        }
-
+        };
+    
         animate();
     }
+    
 
-    fillSequenceOfCells(cells_array) {
+    fillSequenceOfCells(cells_array, milliseconds_delay) {
         cells_array.forEach((cell, index) => {
             const [x, y] = cell;
     
             setTimeout(() => {
                 this.fillCell(x, y); // Call `fillCell` after the delay
-            }, index * 100); // Delay each cell by 2 seconds multiplied by its position
+            }, index * milliseconds_delay); // Delay each cell by 2 seconds multiplied by its position
         });
     }
+
+    
 
     
 
